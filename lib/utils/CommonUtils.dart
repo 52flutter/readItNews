@@ -1,6 +1,17 @@
 import 'dart:ui';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CommonUtils {
+  static void showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1,
+      fontSize: 16.0,
+    );
+  }
+
   static final double MILLIS_LIMIT = 1000.0;
 
   static final double SECONDS_LIMIT = 60 * MILLIS_LIMIT;

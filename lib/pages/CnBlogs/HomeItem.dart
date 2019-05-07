@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:readitnews/components/ProgressView.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:readitnews/routers/router.dart';
+import 'package:readitnews/utils/styles.dart';
 
 class HomeItem extends StatelessWidget {
   final CnBlogsHomeModel model;
@@ -9,30 +11,36 @@ class HomeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    var newsInfo = this.model;
+    var newsInfo = model;
     return new InkWell(
       key: new Key(newsInfo.href),
       onTap: () {
-        // Router.navigateTo(context, Routes.cnBlogDetails,
-        //     param: {"title": data[index].title, "href": data[index].href});
+        Router.navigateTo(context, Routes.cnBlogDetails,
+            param: {"itemData": model});
       },
-      child: new Card(
-        elevation: 2.0,
+      child: new Container(
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+        decoration: new BoxDecoration(
+            color: Colors.white,
+            border: new Border(
+                bottom: new BorderSide(width: 1, color: Colours.divider))),
+        // elevation: 2.0,
         child: new Column(
           children: <Widget>[
             new Container(
               alignment: Alignment.centerLeft,
               child: new Text(
                 newsInfo.title,
-                textScaleFactor: 1.0,
+                maxLines: 1,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                // textScaleFactor: 1.0,
                 textAlign: TextAlign.start,
-                style: new TextStyle(fontSize: 16.0),
+                style: TextStyles.listTitle,
               ),
-              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             ),
             new Container(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +67,7 @@ class HomeItem extends StatelessWidget {
                       child: new Text(
                         newsInfo.desc,
                         textAlign: TextAlign.left,
-                        maxLines: 3,
+                        maxLines: 4,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyles.listContent,
@@ -70,7 +78,7 @@ class HomeItem extends StatelessWidget {
               ),
             ),
             new Container(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+              // padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 10.0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,

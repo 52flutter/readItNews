@@ -20,6 +20,13 @@ class MainBloc implements BlocBase {
       _commonListStatusEvent.stream.asBroadcastStream();
 
   ///****** ****** ****** CnBlog ****** ****** ****** /
+
+  BehaviorSubject<String> _cnblogDetails = BehaviorSubject<String>();
+
+  Sink<String> get _cnblogDetailsSink => _cnblogDetails.sink;
+
+  Stream<String> get cnblogDetailsStream => _cnblogDetails.stream;
+
   BehaviorSubject<List<CnBlogsHomeModel>> _cnblog =
       BehaviorSubject<List<CnBlogsHomeModel>>();
 
@@ -29,6 +36,22 @@ class MainBloc implements BlocBase {
 
   List<CnBlogsHomeModel> _cnblogList;
   int _cnblogPage = 0;
+  void clearDetails() {
+    _cnblogDetailsSink.add(null);
+  }
+
+  Future getCnBlogDetails(String title, String href) {
+    LogUtil.e("getCnBlogDetails");
+    return CnBlogServices.getDetails(title, href).then((html) {
+      if (ObjectUtil.isEmptyString(html)) {
+        _cnblogDetailsSink.add('请求错误');
+      } else {
+        _cnblogDetailsSink.add(html);
+      }
+    }).catchError((_) {
+      _cnblogDetailsSink.add('请求错误');
+    });
+  }
 
   Future getCnBlogHomeData(String labelId, int page) {
     return CnBlogServices.getData(page).then((list) {
@@ -56,6 +79,7 @@ class MainBloc implements BlocBase {
   @override
   void dispose() {
     _cnblog.close();
+    _commonListStatusEvent.close();
     // TODO: implement dispose
   }
 

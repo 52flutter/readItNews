@@ -62,4 +62,21 @@ class CnBlogServices {
     }
     return result;
   }
+
+  static Future<String> getDetails(String title, String href) async {
+    //  await Future.delayed(new Duration(milliseconds: 50));
+    String html = "";
+    Dio dio = new Dio();
+    Response response = await dio.get(href);
+    // blogpost-body
+    var document = parse(response.data);
+    var data = document.getElementsByClassName("blogpost-body");
+    try {
+      html = "<h2>$title</h2>" + data[0].innerHtml;
+    } catch (ex) {
+      print(ex);
+    }
+
+    return html;
+  }
 }

@@ -1,46 +1,102 @@
-import 'dart:async';
+import 'dart:collection';
 
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:readitnews/models/StatusEvent.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
+import 'package:readitnews/services/CnBlogServices.dart';
+import 'package:readitnews/utils/LogUtil.dart';
+import 'package:readitnews/utils/ObjectUtil.dart';
+import 'package:readitnews/utils/String.dart';
 import 'package:rxdart/rxdart.dart';
-
 import 'bloc_provider.dart';
 
 class CnBlogBloc implements BlocBase {
-  var _homeController = BehaviorSubject<List<CnBlogsHomeModel>>();
-  // broadcast广播流允许任意数量的收听者
-  // StreamController<int> _counterController = StreamController.broadcast();
+  BehaviorSubject<StatusEvent> _commonListStatusEvent =
+      BehaviorSubject<StatusEvent>();
 
-  StreamSink<List<CnBlogsHomeModel>> get _homeSink => _homeController.sink;
-  Stream<List<CnBlogsHomeModel>> get _homeStream => _homeController.stream;
+  Sink<StatusEvent> get _commonListStatusSink => _commonListStatusEvent.sink;
 
-  List<CnBlogsHomeModel> _list;
-  int _pageIndex = 0;
+  Stream<StatusEvent> get commonListStatusStream =>
+      _commonListStatusEvent.stream.asBroadcastStream();
 
-  // 构造器
-  CnBlogBloc() {
-    _pageIndex = 0;
+  ///****** ****** ****** CnBlog ****** ****** ****** /
+  BehaviorSubject<String> _cnblogDetails = BehaviorSubject<String>();
+
+  BehaviorSubject<List<CnBlogsHomeModel>> _cnblogHome =
+      BehaviorSubject<List<CnBlogsHomeModel>>();
+
+  Sink<List<CnBlogsHomeModel>> get _cnblogHomeSink => _cnblogHome.sink;
+
+  Stream<List<CnBlogsHomeModel>> get cnblogHomeStream => _cnblogHome.stream;
+
+  List<CnBlogsHomeModel> _cnblogList;
+  int _cnblogPage = 0;
+
+  Future getCnBlogHomeData(String labelId, int page) {
+    return CnBlogServices.getData(page).then((list) {
+      if (_cnblogList == null) {
+        _cnblogList = new List();
+      }
+      if (page == 0) {
+        _cnblogList.clear();
+      }
+      _cnblogList.addAll(list);
+      _cnblogHomeSink.add(UnmodifiableListView<CnBlogsHomeModel>(_cnblogList));
+      _commonListStatusSink.add(new StatusEvent(
+          labelId,
+          RefreshStatus.completed,
+          ObjectUtil.isEmpty(list) ? LoadStatus.noMore : LoadStatus.idle));
+    }).catchError((_) {
+      _cnblogPage--;
+      _commonListStatusSink
+          .add(new StatusEvent(labelId, RefreshStatus.failed, LoadStatus.idle));
+    });
   }
 
+  ///****** ****** ****** CnBlog ****** ****** ****** /
+
+  @override
   void dispose() {
-    _homeController.close();
+    _cnblogHome.close();
+    // TODO: implement dispose
   }
 
   @override
   Future getData({String labelId, int page}) {
-    // TODO: implement getData
-
-    return null;
+    switch (labelId) {
+      case Ids.cnBlog_home:
+        return getCnBlogHomeData(labelId, page);
+        break;
+      default:
+        return Future.delayed(new Duration(seconds: 1));
+        break;
+    }
   }
 
   @override
   Future onLoadMore({String labelId}) {
-    // TODO: implement onLoadMore
-    return null;
+    int _page = 0;
+    switch (labelId) {
+      case Ids.cnBlog_home:
+        _page = ++_cnblogPage;
+        break;
+      default:
+        break;
+    }
+    LogUtil.e("onLoadMore labelId: $labelId" + "   _page: $_page");
+    return getData(labelId: labelId, page: _page);
   }
 
   @override
   Future onRefresh({String labelId}) {
-    // TODO: implement onRefresh
-    return null;
+    switch (labelId) {
+      case Ids.cnBlog_home:
+        _cnblogPage = 0;
+        break;
+      default:
+        break;
+    }
+    LogUtil.e("onRefresh labelId: $labelId");
+    return getData(labelId: labelId, page: 0);
   }
 }
