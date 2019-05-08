@@ -32,12 +32,15 @@ dependencies:
   webview_flutter: ^0.3.6
   html: any
   #html解析成组件
-  flutter_widget_from_html_core: ^0.2.0
+  # flutter_widget_from_html_core: ^0.2.0
   #加载动画
   flutter_spinkit: ^3.1.0
 
   fluttertoast: ^3.0.4
   url_launcher: ^5.0.2
+
+  #json序列化
+  json_annotation: ^2.2.0
 #下拉刷新
   pull_to_refresh: ^1.3.0
   flutter_fab_dialer:
@@ -47,6 +50,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.4.0
+  json_serializable: ^2.2.2
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -76,12 +82,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Consola
+      fonts:
+        - asset: assets/fonts/consola.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
