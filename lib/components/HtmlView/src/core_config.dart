@@ -12,4 +12,4 @@ abstract class Config {
   double get wrapSpacing;
 }
 
-typedef void OnTapUrl(String url);
+typedef void OnTapUrl(String url, {String title});

@@ -40,7 +40,7 @@ class CnBlogHomePage extends StatelessWidget {
     return new StreamBuilder(
       stream: bloc.cnblogStream,
       builder: (BuildContext context,
-          AsyncSnapshot<List<CnBlogsHomeModel>> snapshot) {
+          AsyncSnapshot<List<CnBlogsSitehomeItem>> snapshot) {
         return new RefreshScaffold(
           labelId: labelId,
           isLoading: snapshot.data == null,
@@ -53,7 +53,7 @@ class CnBlogHomePage extends StatelessWidget {
           },
           itemCount: snapshot.data == null ? 0 : snapshot.data.length,
           itemBuilder: (BuildContext context, int index) {
-            CnBlogsHomeModel model = snapshot.data[index];
+            CnBlogsSitehomeItem model = snapshot.data[index];
             return new HomeItem(model: model);
           },
         );

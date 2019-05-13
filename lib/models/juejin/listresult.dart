@@ -1,5 +1,16 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
-part 'listresult.g.dart';
+
+enum JuejinCategory {
+  Recommend, //推荐
+}
+
+class ListData {
+  List<Edges> list;
+  String last;
+  ListData(this.list, this.last);
+}
 
 @JsonSerializable()
 class ListResult {
@@ -10,7 +21,9 @@ class ListResult {
   ListResult.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
-
+  factory ListResult.fromJsonStr(String json) {
+    return ListResult.fromJson(jsonDecode(json));
+  }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.data != null) {
@@ -120,12 +133,13 @@ class Node {
   String title;
   String type;
   User user;
-  Null lastCommentTime;
+  String lastCommentTime;
   int likeCount;
   Null eventInfo;
   bool viewerHasLiked;
   String createdAt;
   String updatedAt;
+  String content;
 
   Node(
       {this.id,
@@ -146,7 +160,8 @@ class Node {
       this.eventInfo,
       this.viewerHasLiked,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.content});
 
   Node.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -173,6 +188,7 @@ class Node {
     viewerHasLiked = json['viewerHasLiked'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    content = json['content'];
   }
 
   Map<String, dynamic> toJson() {
@@ -200,6 +216,7 @@ class Node {
     data['viewerHasLiked'] = this.viewerHasLiked;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['content'] = this.content;
     return data;
   }
 }
@@ -227,13 +244,15 @@ class User {
   String id;
   String role;
   String username;
+  String avatarLarge;
 
-  User({this.id, this.role, this.username});
+  User({this.id, this.role, this.username, this.avatarLarge});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     role = json['role'];
     username = json['username'];
+    avatarLarge = json['avatarLarge'];
   }
 
   Map<String, dynamic> toJson() {
@@ -241,6 +260,7 @@ class User {
     data['id'] = this.id;
     data['role'] = this.role;
     data['username'] = this.username;
+    data['avatarLarge'] = this.avatarLarge;
     return data;
   }
 }

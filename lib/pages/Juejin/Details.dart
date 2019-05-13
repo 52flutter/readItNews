@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:readitnews/bloc/bloc_juejin.dart';
 import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/bloc/main_bloc.dart';
 import 'package:readitnews/components/HtmlView/src/core_html_widget.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
+import 'package:readitnews/models/juejin/listresult.dart';
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:readitnews/routers/router.dart';
 import 'package:readitnews/utils/CommonUtils.dart';
@@ -19,18 +21,18 @@ copyToClipboard(final String text) {
   Clipboard.setData(new ClipboardData(text: text));
 }
 
-class CnBlogDetailsPage extends StatelessWidget {
+class JuejinDetailsPage extends StatelessWidget {
   bool isInit = true;
-  final CnBlogsSitehomeItem itemData;
-  CnBlogDetailsPage({Key key, this.itemData}) : super(key: key);
+  final Edges itemData;
+  JuejinDetailsPage({Key key, this.itemData}) : super(key: key);
 
   void _onPopSelected(String value) {
     switch (value) {
       case "browser":
-        Router.launchInBrowser(itemData.link);
+        Router.launchInBrowser(itemData.node.originalUrl);
         break;
       case "copy":
-        copyToClipboard(itemData.link);
+        copyToClipboard(itemData.node.originalUrl);
         CommonUtils.showToast("复制成功");
         break;
       case "share":
@@ -43,22 +45,22 @@ class CnBlogDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LogUtil.e("CnHomeDetailsPage build......");
-    final MainBloc bloc = BlocProvider.of<MainBloc>(context);
+    final JuejinBloc bloc = globalJuejinBloc;
     if (isInit) {
       isInit = false;
       bloc.clearDetails();
       Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
-        bloc.getCnBlogDetails(itemData.title, itemData.id);
+        bloc.getJuejinDetails(itemData.node.title, itemData.node.originalUrl);
       });
     }
     return new StreamBuilder(
-      stream: bloc.cnblogDetailsStream,
+      stream: bloc.juejinDetailsStream,
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         return new Scaffold(
           appBar: new AppBar(
             title: new Center(
               child: new Text(
-                itemData.title,
+                itemData.node.title,
                 style: TextStyle(fontSize: 16),
               ),
             ),
@@ -123,10 +125,10 @@ class CnBlogDetailsPage extends StatelessWidget {
             children: <Widget>[
               new Scrollbar(
                 child: new RefreshIndicator(
-                  key: new Key(itemData.id),
                   onRefresh: () {
                     // bloc.clearDetails();
-                    return bloc.getCnBlogDetails(itemData.title, itemData.id);
+                    return bloc.getJuejinDetails(
+                        itemData.node.title, itemData.node.originalUrl);
                   },
                   child: new SingleChildScrollView(
                     child: new HtmlWidget(

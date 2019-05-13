@@ -22,18 +22,18 @@ class CnBlogBloc implements BlocBase {
   ///****** ****** ****** CnBlog ****** ****** ****** /
   BehaviorSubject<String> _cnblogDetails = BehaviorSubject<String>();
 
-  BehaviorSubject<List<CnBlogsHomeModel>> _cnblogHome =
-      BehaviorSubject<List<CnBlogsHomeModel>>();
+  BehaviorSubject<List<CnBlogsSitehomeItem>> _cnblogHome =
+      BehaviorSubject<List<CnBlogsSitehomeItem>>();
 
-  Sink<List<CnBlogsHomeModel>> get _cnblogHomeSink => _cnblogHome.sink;
+  Sink<List<CnBlogsSitehomeItem>> get _cnblogHomeSink => _cnblogHome.sink;
 
-  Stream<List<CnBlogsHomeModel>> get cnblogHomeStream => _cnblogHome.stream;
+  Stream<List<CnBlogsSitehomeItem>> get cnblogHomeStream => _cnblogHome.stream;
 
-  List<CnBlogsHomeModel> _cnblogList;
+  List<CnBlogsSitehomeItem> _cnblogList;
   int _cnblogPage = 0;
 
   Future getCnBlogHomeData(String labelId, int page) {
-    return CnBlogServices.getData(page).then((list) {
+    return CnBlogServices.getSiteHomeData(page).then((list) {
       if (_cnblogList == null) {
         _cnblogList = new List();
       }
@@ -41,7 +41,8 @@ class CnBlogBloc implements BlocBase {
         _cnblogList.clear();
       }
       _cnblogList.addAll(list);
-      _cnblogHomeSink.add(UnmodifiableListView<CnBlogsHomeModel>(_cnblogList));
+      _cnblogHomeSink
+          .add(UnmodifiableListView<CnBlogsSitehomeItem>(_cnblogList));
       _commonListStatusSink.add(new StatusEvent(
           labelId,
           RefreshStatus.completed,

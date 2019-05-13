@@ -10,29 +10,29 @@ class MainTabs extends StatefulWidget {
 class MainTabsState extends State<MainTabs>
     with SingleTickerProviderStateMixin {
   /// 单击提示退出
-  Future<bool> _dialogExitApp(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) => new AlertDialog(
-              content: new Text("确认退出?"),
-              actions: <Widget>[
-                new FlatButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: new Text(
-                    "取消",
-                  ),
-                ),
-                new FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: new Text(
-                    "确认",
-                  ),
-                )
-              ],
-            ));
-  }
+  // Future<bool> _dialogExitApp(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (context) => new AlertDialog(
+  //             content: new Text("确认退出?"),
+  //             actions: <Widget>[
+  //               new FlatButton(
+  //                 onPressed: () => Navigator.of(context).pop(false),
+  //                 child: new Text(
+  //                   "取消",
+  //                 ),
+  //               ),
+  //               new FlatButton(
+  //                 onPressed: () {
+  //                   Navigator.of(context).pop(true);
+  //                 },
+  //                 child: new Text(
+  //                   "确认",
+  //                 ),
+  //               )
+  //             ],
+  //           ));
+  // }
 
   final List<VMMainTabModel> mainTabs = <VMMainTabModel>[
     new VMMainTabModel('博客园', new Text('博客园')), //拼音就是参数值

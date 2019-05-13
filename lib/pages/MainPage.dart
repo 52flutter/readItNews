@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:readitnews/bloc/bloc_juejin.dart';
 import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/bloc/count_bloc.dart';
 import 'package:readitnews/components/webview.dart';
 import 'package:readitnews/models/maintab.dart';
+import 'package:readitnews/pages/Juejin/Home.dart';
 import 'package:readitnews/utils/String.dart';
 
 import 'CnBlogs/Home.dart';
@@ -17,11 +19,10 @@ final List<VMMainTabModel> mainTabs = <VMMainTabModel>[
     ),
   ), //拼音就是参数值
   new VMMainTabModel(
-      '掘金',
-      new WebScaffold(
-        title: '掘金',
-        url: 'https://juejin.im/timeline',
-      )),
+    '掘金',
+    new BlocProvider<JuejinBloc>(
+        bloc: globalJuejinBloc, child: new JuejinHomePage()),
+  ),
   new VMMainTabModel(
       '简书',
       new WebScaffold(

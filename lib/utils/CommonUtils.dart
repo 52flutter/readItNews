@@ -43,13 +43,13 @@ class CommonUtils {
     if (subTime < MILLIS_LIMIT) {
       return "刚刚";
     } else if (subTime < SECONDS_LIMIT) {
-      return (subTime / MILLIS_LIMIT).round().toString() + " 秒前";
+      return (subTime / MILLIS_LIMIT).round().toString() + "秒前";
     } else if (subTime < MINUTES_LIMIT) {
-      return (subTime / SECONDS_LIMIT).round().toString() + " 分钟前";
+      return (subTime / SECONDS_LIMIT).round().toString() + "分钟前";
     } else if (subTime < HOURS_LIMIT) {
-      return (subTime / MINUTES_LIMIT).round().toString() + " 小时前";
+      return (subTime / MINUTES_LIMIT).round().toString() + "小时前";
     } else if (subTime < DAYS_LIMIT) {
-      return (subTime / HOURS_LIMIT).round().toString() + " 天前";
+      return (subTime / HOURS_LIMIT).round().toString() + "天前";
     } else {
       return getDateStr(date);
     }

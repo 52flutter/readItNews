@@ -1,21 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:readitnews/components/WebScaffold.dart';
 import 'package:readitnews/pages/CnBlogs/Details.dart';
+import 'package:readitnews/pages/Juejin/Details.dart';
 import 'package:readitnews/utils/CommonUtils.dart';
+import 'package:readitnews/utils/ObjectUtil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Routes {
   /// 博客园
   static const cnBlogDetails = "/cnblogsdetails";
-
+  static const jueJinDetails = "/jueJinDetails";
   static final _routes = <String, WidgetBuilderX>{
     cnBlogDetails: (context, param) {
-      return new CnBlogDetailsPage(
+      return new CnBlogDetailsPage(itemData: param["itemData"]);
+    },
+    jueJinDetails: (context, param) {
+      return new JuejinDetailsPage(
         itemData: param["itemData"],
       );
     },
   };
 }
+//  cnBlogDetails: (context, param) {
+//       return new CnBlogDetailsPage(title: param["title"], href: param["href"]);
+//     },
+//     photoViewPage: (context, param) {
+//       return new PhotoViewPage(param["url"]);
+//     }
+//  juejinDetails: (context, param) {
+//       return new JuejinDetailsPage(
+//         itemData: param["itemData"],
+//       ),
 
 typedef Widget WidgetBuilderX(BuildContext context, Map<String, dynamic> param);
 
@@ -26,6 +42,23 @@ class Router {
     } else {
       CommonUtils.showToast('Could not launch $url');
       // throw 'Could not launch $url';
+    }
+  }
+
+  static void pushWeb(BuildContext context,
+      {String title, String titleId, String url, bool isHome: false}) {
+    if (context == null || ObjectUtil.isEmpty(url)) return;
+    if (url.endsWith(".apk")) {
+      launchInBrowser(url, title: title ?? titleId);
+    } else {
+      Navigator.push(
+          context,
+          new CupertinoPageRoute<void>(
+              builder: (ctx) => new WebScaffold(
+                    title: title,
+                    titleId: titleId,
+                    url: url,
+                  )));
     }
   }
 

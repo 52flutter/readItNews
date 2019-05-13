@@ -12,16 +12,6 @@ void main() => runApp(BlocProvider<ApplicationBloc>(
     ));
 
 class MyApp extends StatelessWidget {
-  SearchArgs data = new SearchArgs(
-    operationName: "",
-    query: "",
-    extensions: new Extensions(
-      query: new Query(id: '653b587c5c7c8a00ddf67fc66f989d42'),
-    ),
-    variables: new Variables(
-        category: '5562b419e4b00c57d9b94ae2', first: 20, order: 'POPULAR'),
-  );
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:readitnews/components/ProgressView.dart';
-import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:readitnews/models/juejin/listresult.dart';
 import 'package:readitnews/routers/router.dart';
 import 'package:readitnews/utils/styles.dart';
 import 'package:readitnews/utils/CommonUtils.dart';
 
 class HomeItem extends StatelessWidget {
-  final CnBlogsSitehomeItem model;
+  final Edges model;
   const HomeItem({Key key, this.model}) : super(key: key);
 
   @override
@@ -16,9 +16,9 @@ class HomeItem extends StatelessWidget {
     return new Material(
       color: Colors.white,
       child: new InkWell(
-        key: new Key(model.id),
+        key: new Key(model.node.id),
         onTap: () {
-          Router.navigateTo(context, Routes.cnBlogDetails,
+          Router.navigateTo(context, Routes.jueJinDetails,
               param: {"itemData": model});
         },
         child: new Container(
@@ -35,7 +35,7 @@ class HomeItem extends StatelessWidget {
               new Container(
                 alignment: Alignment.centerLeft,
                 child: new Text(
-                  model.title ?? '',
+                  model.node.title ?? '',
                   maxLines: 1,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
@@ -54,13 +54,13 @@ class HomeItem extends StatelessWidget {
                     new Container(
                       width: 40.0,
                       height: 40.0,
-                      child: model.author.avatar == ""
+                      child: model.node.user.avatarLarge == ""
                           ? new Icon(Icons.error)
                           : new CachedNetworkImage(
                               width: 40,
                               height: 40,
                               fit: BoxFit.fill,
-                              imageUrl: model.author.avatar,
+                              imageUrl: model.node.user.avatarLarge,
                               placeholder: (context, url) => new ProgressView(),
                               errorWidget: (context, url, error) =>
                                   new Icon(Icons.error),
@@ -71,7 +71,7 @@ class HomeItem extends StatelessWidget {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 10.0),
                         child: new Text(
-                          model.summary,
+                          model.node.content,
                           textAlign: TextAlign.left,
                           maxLines: 3,
                           softWrap: true,
@@ -100,7 +100,7 @@ class HomeItem extends StatelessWidget {
                           color: Colours.gray_66,
                         ),
                         new Text(
-                          model.author.name ?? "",
+                          model.node.user.username ?? "",
                           style: TextStyle(
                             fontSize: 12,
                             color: Colours.gray_66,
@@ -116,7 +116,8 @@ class HomeItem extends StatelessWidget {
                                 color: Colours.gray_99,
                               ),
                               new Text(
-                                CommonUtils.convertDateStr(model.updated),
+                                CommonUtils.convertDateStr(
+                                    model.node.createdAt),
                                 // newsInfo.createTime,
                                 style: TextStyle(
                                   fontSize: 12,
@@ -140,7 +141,7 @@ class HomeItem extends StatelessWidget {
                             color: Colours.gray_99,
                           ),
                           new Text(
-                            '阅读:${model.views.toString()}',
+                            '收藏:${model.node.likeCount.toString()}',
                             style:
                                 TextStyle(fontSize: 12, color: Colours.gray_99),
                           ),
@@ -150,7 +151,7 @@ class HomeItem extends StatelessWidget {
                             color: Colours.gray_99,
                           ),
                           new Text(
-                            '评论:${model.comments.toString()}',
+                            '评论:${model.node.commentsCount.toString()}',
                             style:
                                 TextStyle(fontSize: 12, color: Colours.gray_99),
                           ),

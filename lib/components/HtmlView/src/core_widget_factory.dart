@@ -96,8 +96,11 @@ class WidgetFactory {
     });
   }
 
-  GestureTapCallback buildGestureTapCallbackForUrl(String url) =>
-      () => _config.onTapUrl != null ? _config.onTapUrl(url) : debugPrint(url);
+  GestureTapCallback buildGestureTapCallbackForUrl(String url,
+          {String title}) =>
+      () => _config.onTapUrl != null
+          ? _config.onTapUrl(url, title: title ?? "")
+          : debugPrint(url + title ?? "");
 
   Widget buildImage(String src, {double height, String text, double width}) {
     final imageWidget = src?.startsWith('data:image') == true
