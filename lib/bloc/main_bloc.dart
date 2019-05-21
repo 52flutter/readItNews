@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readitnews/models/StatusEvent.dart';
+import 'package:readitnews/models/cnblogs/cnblog_details.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
 import 'package:readitnews/services/CnBlogServices.dart';
 import 'package:readitnews/utils/LogUtil.dart';
@@ -21,11 +22,12 @@ class MainBloc implements BlocBase {
 
   ///****** ****** ****** CnBlog ****** ****** ****** /
 
-  BehaviorSubject<String> _cnblogDetails = BehaviorSubject<String>();
+  BehaviorSubject<CnBlogDetails> _cnblogDetails =
+      BehaviorSubject<CnBlogDetails>();
 
-  Sink<String> get _cnblogDetailsSink => _cnblogDetails.sink;
+  Sink<CnBlogDetails> get _cnblogDetailsSink => _cnblogDetails.sink;
 
-  Stream<String> get cnblogDetailsStream => _cnblogDetails.stream;
+  Stream<CnBlogDetails> get cnblogDetailsStream => _cnblogDetails.stream;
 
   BehaviorSubject<List<CnBlogsSitehomeItem>> _cnblog =
       BehaviorSubject<List<CnBlogsSitehomeItem>>();
@@ -44,12 +46,12 @@ class MainBloc implements BlocBase {
     LogUtil.e("getCnBlogDetails");
     return CnBlogServices.getDetails(title, href).then((html) {
       if (ObjectUtil.isEmptyString(html)) {
-        _cnblogDetailsSink.add('请求错误');
+        _cnblogDetailsSink.add(new CnBlogDetails(href, '请求错误'));
       } else {
-        _cnblogDetailsSink.add(html);
+        _cnblogDetailsSink.add(new CnBlogDetails(href, html));
       }
     }).catchError((_) {
-      _cnblogDetailsSink.add('请求错误');
+      _cnblogDetailsSink.add(new CnBlogDetails(href, '请求错误'));
     });
   }
 

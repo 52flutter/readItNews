@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readitnews/routers/router.dart';
 import 'package:readitnews/utils/styles.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -40,8 +43,24 @@ class WebScaffoldState extends State<WebScaffold> {
     }
   }
 
+  bool loading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void closeLoading() {
+    setState(() {
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var verticalGestures = Factory<VerticalDragGestureRecognizer>(
+        () => VerticalDragGestureRecognizer());
+    var gestureSet = Set.from([verticalGestures]);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -125,22 +144,47 @@ class WebScaffoldState extends State<WebScaffold> {
                   ])
         ],
       ),
-      body: new WebView(
-        onWebViewCreated: (WebViewController webViewController) {
-//          _webViewController = webViewController;
-//          _webViewController.addListener(() {
-//            int _scrollY = _webViewController.scrollY.toInt();
-//            if (_scrollY < 480 && _isShowFloatBtn) {
-//              _isShowFloatBtn = false;
-//              setState(() {});
-//            } else if (_scrollY > 480 && !_isShowFloatBtn) {
-//              _isShowFloatBtn = true;
-//              setState(() {});
-//            }
-//          });
-        },
-        initialUrl: widget.url,
-        javascriptMode: JavascriptMode.unrestricted,
+      body: new Stack(
+        children: <Widget>[
+          new WebView(
+            // gestureRecognizers: gestureSet,
+            //只响应垂直手势
+            gestureRecognizers: Set()
+              ..add(
+                Factory<VerticalDragGestureRecognizer>(
+                  () => VerticalDragGestureRecognizer(),
+                ),
+              ),
+            onPageFinished: (String url) {
+              closeLoading();
+            },
+            onWebViewCreated: (WebViewController webViewController) {},
+            initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
+          ),
+          new Offstage(
+            offstage: !loading,
+            child: new Container(
+              alignment: Alignment.center,
+              color: Color(0xfff0f0f0),
+              child: new Center(
+                child: new SizedBox(
+                  width: 200.0,
+                  height: 200.0,
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new SpinKitDoubleBounce(
+                          color: Theme.of(context).primaryColor),
+                      // new Container(width: 10.0),
+                      // new Container(child: new Text("加载中")),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
 //      floatingActionButton: _buildFloatingActionButton(),
     );

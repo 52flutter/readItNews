@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_fab_dialer/flutter_fab_dialer.dart';
@@ -78,6 +80,13 @@ class WebScaffoldState extends State<WebScaffold>
       // floatingActionButton: _buildFloatingActionButton(),
       body: new Stack(children: [
         new WebView(
+          //只响应垂直手势
+          gestureRecognizers: Set()
+            ..add(
+              Factory<VerticalDragGestureRecognizer>(
+                () => VerticalDragGestureRecognizer(),
+              ),
+            ),
           onWebViewCreated: (WebViewController webViewController) {
             _webViewController = webViewController;
             // _webViewController.addListener(() {

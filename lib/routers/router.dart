@@ -48,6 +48,9 @@ class Router {
   static void pushWeb(BuildContext context,
       {String title, String titleId, String url, bool isHome: false}) {
     if (context == null || ObjectUtil.isEmpty(url)) return;
+    if (!url.contains('http')) {
+      return;
+    }
     if (url.endsWith(".apk")) {
       launchInBrowser(url, title: title ?? titleId);
     } else {

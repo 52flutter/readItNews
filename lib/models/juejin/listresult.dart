@@ -166,29 +166,35 @@ class Node {
   Node.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     commentsCount = json['commentsCount'];
-    hot = json['hot'];
-    hotIndex = json['hotIndex'];
-    original = json['original'];
-    originalUrl = json['originalUrl'];
-    rankIndex = json['rankIndex'];
-    screenshot = json['screenshot'];
-    summaryInfo = json['summaryInfo'];
-    if (json['tags'] != null) {
-      tags = new List<Tags>();
-      json['tags'].forEach((v) {
-        tags.add(new Tags.fromJson(v));
-      });
-    }
-    title = json['title'];
-    type = json['type'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    lastCommentTime = json['lastCommentTime'];
-    likeCount = json['likeCount'];
-    eventInfo = json['eventInfo'];
-    viewerHasLiked = json['viewerHasLiked'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     content = json['content'];
+    originalUrl = json['originalUrl'];
+    title = json['title'];
+    hot = json['hot'];
+    hotIndex = json['hotIndex'];
+    original = json['original'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    viewerHasLiked = json['viewerHasLiked'];
+
+    try {
+      likeCount = json['likeCount'];
+      rankIndex = json['rankIndex'];
+      screenshot = json['screenshot'];
+      summaryInfo = json['summaryInfo'];
+      if (json['tags'] != null) {
+        tags = new List<Tags>();
+        json['tags'].forEach((v) {
+          tags.add(new Tags.fromJson(v));
+        });
+      }
+
+      type = json['type'];
+
+      lastCommentTime = json['lastCommentTime'];
+
+      eventInfo = json['eventInfo'];
+    } catch (ex) {}
   }
 
   Map<String, dynamic> toJson() {

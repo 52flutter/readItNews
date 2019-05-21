@@ -37,6 +37,7 @@ class CnBlogHomePage extends StatelessWidget {
         bloc.onRefresh(labelId: labelId);
       });
     }
+
     return new StreamBuilder(
       stream: bloc.cnblogStream,
       builder: (BuildContext context,

@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readitnews/models/StatusEvent.dart';
+import 'package:readitnews/models/juejin/juejin_details.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
 import 'package:readitnews/services/JuejinServices.dart';
 import 'package:readitnews/utils/LogUtil.dart';
@@ -20,11 +21,12 @@ class JuejinBloc implements BlocBase {
 
   ///****** ****** ****** Juejin ****** ****** ****** /
 
-  BehaviorSubject<String> _juejinDetails = BehaviorSubject<String>();
+  BehaviorSubject<JuejinDetails> _juejinDetails =
+      BehaviorSubject<JuejinDetails>();
 
-  Sink<String> get _juejinDetailsSink => _juejinDetails.sink;
+  Sink<JuejinDetails> get _juejinDetailsSink => _juejinDetails.sink;
 
-  Stream<String> get juejinDetailsStream => _juejinDetails.stream;
+  Stream<JuejinDetails> get juejinDetailsStream => _juejinDetails.stream;
 
   BehaviorSubject<ListData> _juejin = BehaviorSubject<ListData>();
 
@@ -43,12 +45,12 @@ class JuejinBloc implements BlocBase {
     LogUtil.e("getJuejinDetails");
     return JuejinServices.getDetails(title, href).then((html) {
       if (ObjectUtil.isEmptyString(html)) {
-        _juejinDetails.add('请求错误');
+        _juejinDetails.add(new JuejinDetails(href, '请求错误'));
       } else {
-        _juejinDetails.add(html);
+        _juejinDetails.add(new JuejinDetails(href, html));
       }
     }).catchError((_) {
-      _juejinDetails.add('请求错误');
+      _juejinDetails.add(new JuejinDetails(href, '请求错误'));
     });
   }
 

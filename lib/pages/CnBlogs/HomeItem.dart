@@ -19,7 +19,7 @@ class HomeItem extends StatelessWidget {
         key: new Key(model.id),
         onTap: () {
           Router.navigateTo(context, Routes.cnBlogDetails,
-              param: {"itemData": model});
+              param: {"itemData": model, 'key': model});
         },
         child: new Container(
           padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 8.0),

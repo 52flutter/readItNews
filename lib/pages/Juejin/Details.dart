@@ -6,6 +6,7 @@ import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/bloc/main_bloc.dart';
 import 'package:readitnews/components/HtmlView/src/core_html_widget.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
+import 'package:readitnews/models/juejin/juejin_details.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:readitnews/routers/router.dart';
@@ -21,8 +22,9 @@ copyToClipboard(final String text) {
   Clipboard.setData(new ClipboardData(text: text));
 }
 
+bool isInit = true;
+
 class JuejinDetailsPage extends StatelessWidget {
-  bool isInit = true;
   final Edges itemData;
   JuejinDetailsPage({Key key, this.itemData}) : super(key: key);
 
@@ -55,7 +57,19 @@ class JuejinDetailsPage extends StatelessWidget {
     }
     return new StreamBuilder(
       stream: bloc.juejinDetailsStream,
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<JuejinDetails> snapshot) {
+        if (snapshot.data != null &&
+            snapshot.data.uri != itemData.node.originalUrl) {
+          bloc.clearDetails();
+          Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
+            bloc.getJuejinDetails(
+                itemData.node.title, itemData.node.originalUrl);
+          });
+        }
+        String content = "";
+        if (snapshot.data != null) {
+          content = snapshot.data.content ?? '';
+        }
         return new Scaffold(
           appBar: new AppBar(
             title: new Center(
@@ -132,17 +146,19 @@ class JuejinDetailsPage extends StatelessWidget {
                   },
                   child: new SingleChildScrollView(
                     child: new HtmlWidget(
-                      snapshot.data ?? '',
+                      content,
                       onTapUrl: (url, {String title}) {
-                        Router.pushWeb(context,
-                            title: title ?? url ?? "", url: url);
+                        print(url + title);
+                        Router.pushWeb(context, title: title, url: url);
                       },
                     ),
                   ),
                 ),
               ),
               new Offstage(
-                offstage: !ObjectUtil.isEmptyString(snapshot.data),
+                offstage: snapshot.data != null &&
+                    itemData.node.originalUrl == snapshot.data.uri &&
+                    !ObjectUtil.isEmptyString(snapshot.data.content),
                 child: new Container(
                   alignment: Alignment.center,
                   color: Color(0xfff0f0f0),

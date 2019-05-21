@@ -29,24 +29,24 @@ dependencies:
   font_awesome_flutter: ^8.4.0
   rxdart: ^0.22.0
   #webview
-  webview_flutter: ^0.3.6
+  webview_flutter: ^0.3.7+1
   html: any
   #html解析成组件
   # flutter_widget_from_html_core: ^0.2.0
   #加载动画
   flutter_spinkit: ^3.1.0
 
-  fluttertoast: ^3.0.4
+  fluttertoast: ^3.1.0
   url_launcher: ^5.0.2
 
   #json序列化
-  json_annotation: ^2.2.0
+  json_annotation: ^2.3.0
 
   flutter_webview_plugin: ^0.3.5
 
-  xml: ^3.4.1
+  xml: ^3.5.0
 #下拉刷新
-  pull_to_refresh: ^1.3.0
+  pull_to_refresh: ^1.3.3
   flutter_fab_dialer:
       git:
         url: https://github.com/Leondev7/flutter_fab_dialer
@@ -55,9 +55,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.4.0
-  json_serializable: ^2.2.2
-
-
+  json_serializable: ^2.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

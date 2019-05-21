@@ -33,6 +33,7 @@ class TagA {
     final attrs = meta.domElement.attributes;
     final href = attrs.containsKey('href') ? attrs['href'] : '';
     final url = wf.constructFullUrl(href) ?? href;
-    return wf.buildGestureTapCallbackForUrl(url);
+    final title = meta.domElement.text ?? url;
+    return wf.buildGestureTapCallbackForUrl(url, title: title);
   }
 }
