@@ -3,8 +3,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readitnews/bloc/bloc_juejin.dart';
 import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/components/RefreshScaffold.dart';
-import 'package:readitnews/components/flutter_radial_menu/src/radial_menu.dart';
-import 'package:readitnews/components/flutter_radial_menu/src/radial_menu_item.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
 import 'package:readitnews/utils/LogUtil.dart';
 import 'package:rxdart/rxdart.dart';
@@ -47,22 +45,6 @@ class JuejinHomePage extends StatelessWidget {
       stream: bloc.juejinStream,
       builder: (BuildContext context, AsyncSnapshot<ListData> snapshot) {
         return new Scaffold(
-          // floatingActionButton: new FloatingActionButton(
-          //   child: new RadialMenu(
-          //     items: <RadialMenuItem<int>>[
-          //       const RadialMenuItem<int>(
-          //         value: 1,
-          //         child: const Icon(Icons.add),
-          //       ),
-          //       const RadialMenuItem<int>(
-          //         value: -1,
-          //         child: const Icon(Icons.remove),
-          //       )
-          //     ],
-          //     radius: 100.0,
-          //     onSelected: print,
-          //   ),
-          // ),
           body: new Stack(
             children: [
               new RefreshScaffold(

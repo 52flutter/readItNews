@@ -30,11 +30,12 @@ final List<VMMainTabModel> mainTabs = <VMMainTabModel>[
         url: 'https://www.jianshu.com/',
       )),
   new VMMainTabModel(
-      'Github',
-      new WebScaffold(
-        title: '简书',
-        url: 'https://github.com',
-      ))
+    'Github',
+    new WebScaffold(
+      title: 'Github',
+      url: 'https://github.com',
+    ),
+  )
 ];
 
 class MainPage extends StatelessWidget {

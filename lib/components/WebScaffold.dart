@@ -58,9 +58,9 @@ class WebScaffoldState extends State<WebScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    var verticalGestures = Factory<VerticalDragGestureRecognizer>(
-        () => VerticalDragGestureRecognizer());
-    var gestureSet = Set.from([verticalGestures]);
+    // var verticalGestures = Factory<VerticalDragGestureRecognizer>(
+    //     () => VerticalDragGestureRecognizer());
+    // var gestureSet = Set.from([verticalGestures]);
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
