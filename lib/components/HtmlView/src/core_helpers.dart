@@ -1,7 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_syntax_view/flutter_syntax_view.dart';
+// import 'package:readitnews/components/CodeView/SyntaxWidget.dart';
+// import 'package:flutter_syntax_view/syntax_theme.dart';
 import 'package:readitnews/components/CodeView/SyntaxWidget.dart';
-import 'package:readitnews/components/CodeView/syntax_theme.dart';
+// import 'package:readitnews/components/CodeView/SyntaxWidget.dart';
+// import 'package:flutter_syntax_view/flutter_syntax_view.dart';
+
 import 'core_widget_factory.dart';
 import 'data_classes.dart';
 

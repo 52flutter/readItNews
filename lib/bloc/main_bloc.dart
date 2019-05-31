@@ -67,12 +67,16 @@ class MainBloc implements BlocBase {
       _cnblogSink.add(UnmodifiableListView<CnBlogsSitehomeItem>(_cnblogList));
       _commonListStatusSink.add(new StatusEvent(
           labelId,
-          RefreshStatus.completed,
-          ObjectUtil.isEmpty(list) ? LoadStatus.noMore : LoadStatus.idle));
+          page == 0 ? RefreshType.top : RefreshType.bottom,
+          ObjectUtil.isEmpty(list)
+              ? RefreshResult.noMore
+              : RefreshResult.completed));
     }).catchError((_) {
       _cnblogPage--;
-      _commonListStatusSink
-          .add(new StatusEvent(labelId, RefreshStatus.failed, LoadStatus.idle));
+      _commonListStatusSink.add(new StatusEvent(
+          labelId,
+          page == 0 ? RefreshType.top : RefreshType.bottom,
+          RefreshResult.failed));
     });
   }
 

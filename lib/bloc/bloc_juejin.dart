@@ -71,18 +71,20 @@ class JuejinBloc implements BlocBase {
       endCursor = data.data.articleFeed.items.pageInfo.endCursor;
       _commonListStatusSink.add(new StatusEvent(
           "",
-          RefreshStatus.completed,
+          oldEndCursor == '' ? RefreshType.top : RefreshType.bottom,
           ObjectUtil.isEmpty(data.data.articleFeed.items.edges)
-              ? LoadStatus.noMore
-              : LoadStatus.idle));
+              ? RefreshResult.noMore
+              : RefreshResult.completed));
     }).catchError((_) {
       endCursor = oldEndCursor;
       if (endCursor == '') {
         _juejinSink
             .add(new ListData(UnmodifiableListView<Edges>(new List()), ''));
       }
-      _commonListStatusSink
-          .add(new StatusEvent("", RefreshStatus.failed, LoadStatus.idle));
+      _commonListStatusSink.add(new StatusEvent(
+          "",
+          oldEndCursor == '' ? RefreshType.top : RefreshType.bottom,
+          RefreshResult.failed));
     });
   }
 

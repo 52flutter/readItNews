@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart' as pull_to_refresh;
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import 'ProgressView.dart';
 
 typedef void OnLoadMore();
@@ -85,19 +84,21 @@ class RefreshScaffoldState extends State<RefreshScaffold>
     return new Scaffold(
         body: new Stack(
           children: <Widget>[
-            new RefreshIndicator(
-                child: new pull_to_refresh.SmartRefresher(
-                    controller: widget.controller,
-                    enablePullDown: false,
-                    enablePullUp: widget.enablePullUp,
-                    enableOverScroll: false,
-                    onLoading: widget.onLoadMore,
-                    child: widget.child ??
-                        new ListView.builder(
-                          itemCount: widget.itemCount,
-                          itemBuilder: widget.itemBuilder,
-                        )),
-                onRefresh: widget.onRefresh),
+            new pull_to_refresh.SmartRefresher(
+              controller: widget.controller,
+              enablePullDown: true,
+              onRefresh: widget.onRefresh,
+              enablePullUp: widget.enablePullUp,
+              onLoading: widget.onLoadMore,
+              child: widget.child ??
+                  new ListView.builder(
+                    itemCount: widget.itemCount,
+                    itemBuilder: widget.itemBuilder,
+                  ),
+            ),
+            // new RefreshIndicator(
+            //     child:
+            //     onRefresh: widget.onRefresh),
             new Offstage(
               offstage: widget.isLoading != true,
               child: new Container(

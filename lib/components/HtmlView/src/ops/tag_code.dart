@@ -26,10 +26,19 @@ class TagCode {
   //     )
   BuiltPiece _buildPreTag(NodeMetadata meta) {
     return BuiltPieceSimple(widgets: [
-      new SyntaxWidget(
+      new Container(
+        child: new SyntaxWidget(
           code: meta.domElement.text,
-          syntax: Syntax.KOTLIN,
-          syntaxTheme: SyntaxTheme.ayuDark()),
+          syntax: Syntax.JAVASCRIPT,
+          syntaxTheme: SyntaxTheme.ayuDark(),
+          // withZoom: true,
+        ),
+      ),
+
+      // new SyntaxWidget(
+      //     code: meta.domElement.text,
+      //     syntax: Syntax.KOTLIN,
+      //     syntaxTheme: SyntaxTheme.ayuDark()),
     ]);
   }
 // new DartSyntaxHighlighter().format(node.text)

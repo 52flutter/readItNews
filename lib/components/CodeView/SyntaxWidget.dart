@@ -1,22 +1,14 @@
-library flutter_syntax_view;
-
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:readitnews/components/CodeView/syntax_theme.dart';
-import 'package:readitnews/components/CodeView/syntaxes/dart.dart';
-import 'package:readitnews/components/CodeView/syntaxes/java.dart';
-import 'package:readitnews/components/CodeView/syntaxes/kotlin.dart';
-import 'package:readitnews/components/CodeView/syntaxes/swift.dart';
+import 'package:flutter_syntax_view/syntax_theme.dart';
+import 'package:flutter_syntax_view/syntaxes/dart.dart';
+import 'package:flutter_syntax_view/syntaxes/java.dart';
+import 'package:flutter_syntax_view/syntaxes/javascript.dart';
+import 'package:flutter_syntax_view/syntaxes/kotlin.dart';
+import 'package:flutter_syntax_view/syntaxes/swift.dart';
+import 'package:flutter_syntax_view/flutter_syntax_view.dart';
 
 ///Supported Syntaxes Enum
-enum Syntax {
-  DART,
-  JAVA,
-  KOTLIN,
-  SWIFT
-
-  ///TODO SUPPORT MORE SYNTAXES
-}
 
 class SyntaxWidget extends StatefulWidget {
   SyntaxWidget(
@@ -36,6 +28,8 @@ class SyntaxWidget extends StatefulWidget {
         return KotlinSyntaxHighlighter(this.syntaxTheme);
       case Syntax.SWIFT:
         return SwiftSyntaxHighlighter(this.syntaxTheme);
+      case Syntax.JAVASCRIPT:
+        return JavaScriptSyntaxHighlighter(this.syntaxTheme);
       default:
         return DartSyntaxHighlighter(this.syntaxTheme);
     }

@@ -24,7 +24,6 @@ class JuejinHomePage extends StatelessWidget {
     bloc.commonListStatusStream.listen((event) {
       //if (labelId == event.labelId) {
       event.seedBack(_controller);
-
       // }
     });
 
@@ -56,7 +55,7 @@ class JuejinHomePage extends StatelessWidget {
                     snapshot.data == null ? 0 : snapshot.data.list.length,
                 itemBuilder: (BuildContext context, int index) {
                   Edges model = snapshot.data.list[index];
-                  return new HomeItem(model: model);
+                  // return new HomeItem(model: model);
                 },
               ),
             ],
