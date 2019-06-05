@@ -28,8 +28,8 @@ class TagCode {
     return BuiltPieceSimple(widgets: [
       new Container(
         child: new SyntaxWidget(
-          code: meta.domElement.text,
-          syntax: Syntax.JAVASCRIPT,
+          code: meta.domElement.text.replaceAll("复制代码", ''),
+          syntax: Syntax.JAVA,
           syntaxTheme: SyntaxTheme.ayuDark(),
           // withZoom: true,
         ),

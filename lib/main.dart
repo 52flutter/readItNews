@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getuiflut/getuiflut.dart';
 import 'package:readitnews/pages/MainPage.dart';
 
 import 'bloc/application_bloc.dart';
@@ -15,6 +16,51 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+// GETUI_APP_ID    : "sERNrRax4vAn646UlGN8r2",
+//     	GETUI_APP_KEY   : "8KJc0jQOFdAdED3OQjQxy5",
+//     	GETUI_APP_SECRET: "aIeMIm1C5EAbqBxX41CCg"
+    Getuiflut().startSdk(
+        appId: "sERNrRax4vAn646UlGN8r2",
+        appKey: "8KJc0jQOFdAdED3OQjQxy5",
+        appSecret: "aIeMIm1C5EAbqBxX41CCg");
+//个推
+    Getuiflut().addEventHandler(
+      // 注册收到 cid 的回调
+      onReceiveClientId: (String message) async {
+        print("flutter onRegisterDeviceToken: $message");
+      },
+      //// 消息到达的回调
+      onNotificationMessageArrived: (Map<String, dynamic> message) async {
+        print("flutter onNotificationMessageArrived: $message");
+      },
+      // 消息点击的回调
+      onNotificationMessageClicked: (Map<String, dynamic> message) async {
+        print("flutter onNotificationMessageArrived: $message");
+      },
+      // 透传消息的内容都会走到这里
+      onReceiveMessageData: (Map<String, dynamic> message) async {
+        print("flutter onReceiveMessageData: $message");
+      },
+
+      onRegisterDeviceToken: (String message) async {
+        print("flutter onRegisterDeviceToken: $message");
+      },
+      onReceivePayload: (String message) async {
+        print("flutter onReceivePayload: $message");
+      },
+      onReceiveNotificationResponse: (Map<String, dynamic> message) async {
+        print("flutter onReceiveNotificationResponse: $message");
+      },
+      onAppLinkPayload: (String message) async {
+        print("flutter onAppLinkPayload: $message");
+      },
+      onRegisterVoipToken: (String message) async {
+        print("flutter onRegisterVoipToken: $message");
+      },
+      onReceiveVoipPayLoad: (Map<String, dynamic> message) async {
+        print("flutter onReceiveVoipPayLoad: $message");
+      },
+    );
     return MaterialApp(
       // title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class VMMainTabModel {
+class VM_Tab {
   String text;
   Widget tabWidget;
-  VMMainTabModel(this.text, this.tabWidget);
+  VM_Tab(this.text, this.tabWidget);
 }

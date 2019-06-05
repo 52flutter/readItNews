@@ -4,10 +4,7 @@ import 'package:readitnews/bloc/bloc_juejin.dart';
 import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/components/RefreshScaffold.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
-import 'package:readitnews/utils/LogUtil.dart';
 import 'package:rxdart/rxdart.dart';
-
-import 'HomeItem.dart';
 
 bool isInit = true;
 
@@ -18,7 +15,7 @@ class JuejinHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LogUtil.e("JuejinHomePage build......");
+    // LogUtil.e("JuejinHomePage build......");
     RefreshController _controller = new RefreshController();
     final JuejinBloc bloc = BlocProvider.of<JuejinBloc>(context);
     bloc.commonListStatusStream.listen((event) {

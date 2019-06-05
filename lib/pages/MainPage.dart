@@ -1,41 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:readitnews/bloc/bloc_juejin.dart';
-import 'package:readitnews/bloc/bloc_provider.dart';
-import 'package:readitnews/bloc/count_bloc.dart';
 import 'package:readitnews/components/webview.dart';
 import 'package:readitnews/models/maintab.dart';
 import 'package:readitnews/pages/Juejin/Home.dart';
+import 'package:readitnews/utils/LogUtil.dart';
 import 'package:readitnews/utils/String.dart';
+import 'package:readitnews/pages/common/maintabs.dart';
 
 import 'CnBlogs/Home.dart';
 
-final List<VMMainTabModel> mainTabs = <VMMainTabModel>[
-  new VMMainTabModel(
+final List<VM_Tab> mainTabs = <VM_Tab>[
+  new VM_Tab(
     '博客园',
     new CnBlogHomePage(
       labelId: Ids.cnBlog_home,
     ),
   ), //拼音就是参数值
-  new VMMainTabModel(
-    '掘金',
-    new BlocProvider<JuejinBloc>(
-        bloc: globalJuejinBloc, child: new JuejinHomePage()),
-  ),
-  new VMMainTabModel(
+  new VM_Tab('掘金', new JuejinHomePage()),
+  new VM_Tab(
       '简书',
       new WebScaffold(
         title: '简书',
         url: 'https://www.jianshu.com/',
       )),
-  new VMMainTabModel(
-    'Github',
-    new WebScaffold(
-      title: 'Github',
-      url: 'https://github.com',
-    ),
-  )
+  // new VMMainTabModel(
+  //   'Github',
+  //   new WebScaffold(
+  //     title: 'Github',
+  //     url: 'https://github.com',
+  //   ),
+  // )
 ];
 
 class MainPage extends StatelessWidget {
@@ -55,6 +50,10 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LogUtil.e("MainPage build......");
+    return new TopTabs(
+      tabs: mainTabs,
+    );
     return new DefaultTabController(
         length: mainTabs.length,
         child: new Scaffold(
@@ -85,9 +84,7 @@ class TabLayout extends StatelessWidget {
       isScrollable: true,
       labelPadding: EdgeInsets.all(12.0),
       indicatorSize: TabBarIndicatorSize.label,
-      tabs: mainTabs
-          .map((VMMainTabModel page) => new Tab(text: page.text))
-          .toList(),
+      tabs: mainTabs.map((VM_Tab page) => new Tab(text: page.text)).toList(),
     );
   }
 }
@@ -95,11 +92,9 @@ class TabLayout extends StatelessWidget {
 class TabBarViewLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new BlocProvider<IncrementBloc>(
-        bloc: new IncrementBloc(),
-        child: new TabBarView(
-            children: mainTabs.map((VMMainTabModel page) {
-          return page.tabWidget;
-        }).toList()));
+    return new TabBarView(
+        children: mainTabs.map((VM_Tab page) {
+      return page.tabWidget;
+    }).toList());
   }
 }

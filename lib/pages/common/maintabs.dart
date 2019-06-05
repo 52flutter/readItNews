@@ -2,52 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readitnews/models/maintab.dart';
 
-class MainTabs extends StatefulWidget {
+class TopTabs extends StatefulWidget {
+  final List<VM_Tab> tabs;
+  const TopTabs({Key key, @required this.tabs});
+
   @override
-  MainTabsState createState() => new MainTabsState();
+  TopTabsState createState() => new TopTabsState();
 }
 
-class MainTabsState extends State<MainTabs>
-    with SingleTickerProviderStateMixin {
-  /// 单击提示退出
-  // Future<bool> _dialogExitApp(BuildContext context) {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) => new AlertDialog(
-  //             content: new Text("确认退出?"),
-  //             actions: <Widget>[
-  //               new FlatButton(
-  //                 onPressed: () => Navigator.of(context).pop(false),
-  //                 child: new Text(
-  //                   "取消",
-  //                 ),
-  //               ),
-  //               new FlatButton(
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop(true);
-  //                 },
-  //                 child: new Text(
-  //                   "确认",
-  //                 ),
-  //               )
-  //             ],
-  //           ));
-  // }
-
-  final List<VMMainTabModel> mainTabs = <VMMainTabModel>[
-    new VMMainTabModel('博客园', new Text('博客园')), //拼音就是参数值
-    new VMMainTabModel('掘金', new Text('掘金')),
-    new VMMainTabModel('简书', new Text('简书')),
-    new VMMainTabModel('简书', new Text('简书')),
-    new VMMainTabModel('简书', new Text('简书')),
-    new VMMainTabModel('Github', new Text('博客园'))
-  ];
-
+class TopTabsState extends State<TopTabs> with SingleTickerProviderStateMixin {
   TabController _tabController;
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: mainTabs.length);
+    _tabController = new TabController(vsync: this, length: widget.tabs.length);
   }
 
   @override
@@ -72,6 +40,7 @@ class MainTabsState extends State<MainTabs>
 
   @override
   Widget build(BuildContext context) {
+    var mainTabs = widget.tabs;
     return Scaffold(
       appBar: new AppBar(
         leading: buildIconBotton(new Icon(FontAwesomeIcons.user), () {
@@ -82,16 +51,17 @@ class MainTabsState extends State<MainTabs>
             print("Pressed");
           })
         ],
+        centerTitle: true,
         title: new Center(
           child: new TabBar(
             controller: _tabController,
-            tabs: mainTabs.map((VMMainTabModel item) {
+            tabs: mainTabs.map((VM_Tab item) {
               //NewsTab可以不用声明
               return new Tab(text: item.text ?? '错误');
             }).toList(),
-            indicatorColor: Colors.white,
-            isScrollable:
-                true, //水平滚动的开关，开启后Tab标签可自适应宽度并可横向拉动，关闭后每个Tab自动压缩为总长符合屏幕宽度的等宽，默认关闭
+            isScrollable: true,
+            labelPadding: EdgeInsets.all(12.0),
+            indicatorSize: TabBarIndicatorSize.label,
           ),
         ),
       ),

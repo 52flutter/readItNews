@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readitnews/models/StatusEvent.dart';
 import 'package:readitnews/models/juejin/juejin_details.dart';
 import 'package:readitnews/models/juejin/listresult.dart';

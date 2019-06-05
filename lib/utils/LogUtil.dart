@@ -23,6 +23,7 @@ class LogUtil {
     StringBuffer sb = new StringBuffer();
     sb.write((tag == null || tag.isEmpty) ? TAG : tag);
     sb.write(stag);
+    sb.write(DateTime.now().toString() + "  ");
     sb.write(object);
     print(sb.toString());
   }

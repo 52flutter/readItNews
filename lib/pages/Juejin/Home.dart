@@ -20,7 +20,8 @@ class JuejinHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     LogUtil.e("JuejinHomePage build......");
     RefreshController _controller = new RefreshController();
-    final JuejinBloc bloc = BlocProvider.of<JuejinBloc>(context);
+    final JuejinBloc bloc = globalJuejinBloc;
+
     bloc.commonListStatusStream.listen((event) {
       //if (labelId == event.labelId) {
       event.seedBack(_controller);
@@ -30,7 +31,7 @@ class JuejinHomePage extends StatelessWidget {
 
     if (isInit) {
       isInit = false;
-      Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
+      Observable.just(1).delay(new Duration(milliseconds: 200)).listen((_) {
         bloc.onRefresh(labelId: labelId, category: JuejinCategory.Recommend);
       });
     }

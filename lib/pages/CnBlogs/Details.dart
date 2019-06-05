@@ -49,7 +49,7 @@ class CnBlogDetailsPage extends StatelessWidget {
     if (isInit) {
       isInit = false;
       bloc.clearDetails();
-      Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
+      Observable.just(1).delay(new Duration(milliseconds: 200)).listen((_) {
         bloc.getCnBlogDetails(itemData.title, itemData.id);
       });
     }

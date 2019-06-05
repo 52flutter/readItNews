@@ -1,12 +1,14 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_webview_plugin (0.0.1):
-    - Flutter
   - fluttertoast (0.0.2):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - getuiflut (0.0.1):
+    - Flutter
+    - GTSDK
+  - GTSDK (2.3.1.0)
   - path_provider (0.0.1):
     - Flutter
   - sqflite (0.0.1):
@@ -19,8 +21,8 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios-release`)
-  - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - getuiflut (from `.symlinks/plugins/getuiflut/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
@@ -29,14 +31,15 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FMDB
+    - GTSDK
 
 EXTERNAL SOURCES:
   Flutter:
     :path: ".symlinks/flutter/ios-release"
-  flutter_webview_plugin:
-    :path: ".symlinks/plugins/flutter_webview_plugin/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  getuiflut:
+    :path: ".symlinks/plugins/getuiflut/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   sqflite:
@@ -48,9 +51,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
-  flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  getuiflut: c596bd63fc329462b511b6c1f2c18819d3359260
+  GTSDK: 494ef4408b38bb637d6020068aac7f26cbe9d82e
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   sqflite: ff1d9da63c06588cc8d1faf7256d741f16989d5a
   url_launcher: 0067ddb8f10d36786672aa0722a21717dba3a298

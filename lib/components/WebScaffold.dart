@@ -149,12 +149,12 @@ class WebScaffoldState extends State<WebScaffold> {
           new WebView(
             // gestureRecognizers: gestureSet,
             //只响应垂直手势
-            gestureRecognizers: Set()
-              ..add(
-                Factory<VerticalDragGestureRecognizer>(
-                  () => VerticalDragGestureRecognizer(),
-                ),
-              ),
+            // gestureRecognizers: Set()
+            //   ..add(
+            //     Factory<VerticalDragGestureRecognizer>(
+            //       () => VerticalDragGestureRecognizer(),
+            //     ),
+            //   ),
             onPageFinished: (String url) {
               closeLoading();
             },

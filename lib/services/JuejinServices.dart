@@ -43,9 +43,7 @@ class JuejinServices {
             "X-Agent": "Juejin/Web",
           },
         ));
-    var data2 = ListResult.fromJson(data.data);
-    print(data2);
-    return data2;
+    return ListResult.fromJson(data.data);
   }
 
   static Future<String> getDetails(String title, String url) async {
