@@ -42,7 +42,21 @@ android {
         manifestPlaceholders = [
     	GETUI_APP_ID    : "sERNrRax4vAn646UlGN8r2",
     	GETUI_APP_KEY   : "8KJc0jQOFdAdED3OQjQxy5",
-    	GETUI_APP_SECRET: "aIeMIm1C5EAbqBxX41CCg" 
+    	GETUI_APP_SECRET: "aIeMIm1C5EAbqBxX41CCg" ,
+        
+        XIAOMI_APP_ID   : "",
+        XIAOMI_APP_KEY  : "",
+
+        MEIZU_APP_ID    : "",
+        MEIZU_APP_KEY   : "",
+
+        HUAWEI_APP_ID   : "",
+
+        OPPO_APP_KEY   : "",
+        OPPO_APP_SECRET  : "",
+
+        VIVO_APP_ID   : "",
+        VIVO_APP_KEY  : ""
     ]
     }
 

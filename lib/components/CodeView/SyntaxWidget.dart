@@ -57,16 +57,14 @@ class SyntaxWidgetState extends State<SyntaxWidget> {
         // constraints: BoxConstraints.expand(),
         child: Scrollbar(
           child: SingleChildScrollView(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: RichText(
-                textScaleFactor: textScaleFactor,
-                text: TextSpan(
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
-                  children: <TextSpan>[
-                    widget.getSyntax(widget.syntax).format(widget.code)
-                  ],
-                ),
+            scrollDirection: Axis.horizontal,
+            child: RichText(
+              textScaleFactor: textScaleFactor,
+              text: TextSpan(
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                children: <TextSpan>[
+                  widget.getSyntax(widget.syntax).format(widget.code)
+                ],
               ),
             ),
           ),

@@ -3,10 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readitnews/bloc/bloc_provider.dart';
 import 'package:readitnews/bloc/main_bloc.dart';
-import 'package:readitnews/components/HtmlView/src/core_html_widget.dart';
+import 'package:readitnews/components/HtmlView/HtmlView.dart';
 import 'package:readitnews/models/cnblogs/cnblog_details.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
-// import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:readitnews/routers/router.dart';
 import 'package:readitnews/utils/CommonUtils.dart';
 import 'package:readitnews/utils/LogUtil.dart';
@@ -142,14 +141,7 @@ class CnBlogDetailsPage extends StatelessWidget {
                     return bloc.getCnBlogDetails(itemData.title, itemData.id);
                   },
                   child: new SingleChildScrollView(
-                    child: new HtmlWidget(
-                      content,
-                      onTapUrl: (url, {String title}) {
-                        print(url + title);
-                        Router.pushWeb(context, title: title, url: url);
-                      },
-                    ),
-                  ),
+                      child: new HtmlView(htmlStr: snapshot.data?.content)),
                 ),
               ),
               new Offstage(

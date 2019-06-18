@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   cached_network_image: ^0.8.0
   #网络请求
-  dio: ^2.1.6
+  dio: ^2.1.7
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -37,7 +37,7 @@ dependencies:
   flutter_spinkit: ^3.1.0
 
   fluttertoast: ^3.1.0
-  url_launcher: ^5.0.2
+  url_launcher: ^5.0.3
   #图表
   charts_flutter: ^0.6.0
 
@@ -46,9 +46,10 @@ dependencies:
   tinycolor: ^1.0.2
   xml: ^3.5.0
   #下拉刷新
-  pull_to_refresh: ^1.4.0
+  pull_to_refresh: ^1.4.3
   #代码
-  flutter_syntax_view: ^0.2.0
+  flutter_syntax_view: ^0.2.1
+  flutter_widget_from_html_core: ^0.2.1+1
   #个推
   getuiflut: ^0.0.8
   flutter_fab_dialer:

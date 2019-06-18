@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:readitnews/bloc/bloc_juejin.dart';
-import 'package:readitnews/components/HtmlView/src/core_html_widget.dart';
+import 'package:readitnews/components/HtmlView/HtmlView.dart';
 import 'package:readitnews/models/juejin/juejin_details.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
-// import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:readitnews/routers/router.dart';
 import 'package:readitnews/utils/CommonUtils.dart';
 import 'package:readitnews/utils/LogUtil.dart';
@@ -142,14 +141,7 @@ class JuejinDetailsPage extends StatelessWidget {
                         itemData.node.title, itemData.node.originalUrl);
                   },
                   child: new SingleChildScrollView(
-                    child: new HtmlWidget(
-                      content,
-                      onTapUrl: (url, {String title}) {
-                        print(url + title);
-                        Router.pushWeb(context, title: title, url: url);
-                      },
-                    ),
-                  ),
+                      child: new HtmlView(htmlStr: snapshot.data?.content)),
                 ),
               ),
               new Offstage(

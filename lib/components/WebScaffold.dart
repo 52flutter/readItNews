@@ -35,7 +35,13 @@ class WebScaffoldState extends State<WebScaffold> {
         break;
       case "collection":
         break;
-
+      case "refresh":
+        {
+          if (_webViewController != null) {
+            _webViewController.reload();
+          }
+          break;
+        }
       case "share":
         break;
       default:
@@ -56,6 +62,7 @@ class WebScaffoldState extends State<WebScaffold> {
     });
   }
 
+  WebViewController _webViewController;
   @override
   Widget build(BuildContext context) {
     // var verticalGestures = Factory<VerticalDragGestureRecognizer>(
@@ -64,7 +71,7 @@ class WebScaffoldState extends State<WebScaffold> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          widget.title ?? '',
+          widget.title ?? widget.url ?? "",
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -120,27 +127,53 @@ class WebScaffoldState extends State<WebScaffold> {
 //                              ),
 //                            ))),
                     new PopupMenuItem<String>(
-                        value: "share",
-                        child: ListTile(
-                            contentPadding: EdgeInsets.all(0.0),
-                            dense: false,
-                            title: new Container(
-                              alignment: Alignment.center,
-                              child: new Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.share,
-                                    color: Colours.gray_66,
-                                    size: 22.0,
-                                  ),
-                                  Gaps.hGap10,
-                                  Text(
-                                    '分享',
-                                    style: TextStyles.listContent,
-                                  )
-                                ],
+                      value: "share",
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0.0),
+                        dense: false,
+                        title: new Container(
+                          alignment: Alignment.center,
+                          child: new Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.share,
+                                color: Colours.gray_66,
+                                size: 22.0,
                               ),
-                            ))),
+                              Gaps.hGap10,
+                              Text(
+                                '分享',
+                                style: TextStyles.listContent,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new PopupMenuItem<String>(
+                      value: "refresh",
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0.0),
+                        dense: false,
+                        title: new Container(
+                          alignment: Alignment.center,
+                          child: new Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.refresh,
+                                color: Colours.gray_66,
+                                size: 22.0,
+                              ),
+                              Gaps.hGap10,
+                              Text(
+                                '刷新',
+                                style: TextStyles.listContent,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ])
         ],
       ),
@@ -158,7 +191,9 @@ class WebScaffoldState extends State<WebScaffold> {
             onPageFinished: (String url) {
               closeLoading();
             },
-            onWebViewCreated: (WebViewController webViewController) {},
+            onWebViewCreated: (WebViewController webViewController) {
+              this._webViewController = webViewController;
+            },
             initialUrl: widget.url,
             javascriptMode: JavascriptMode.unrestricted,
           ),
