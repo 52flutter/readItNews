@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_syntax_view/syntax_theme.dart';
 import 'package:flutter_syntax_view/syntaxes/dart.dart';

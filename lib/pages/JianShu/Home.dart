@@ -51,7 +51,7 @@ class JuejinHomePage extends StatelessWidget {
                 itemCount:
                     snapshot.data == null ? 0 : snapshot.data.list.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Edges model = snapshot.data.list[index];
+                  // Edges model = snapshot.data.list[index];
                   // return new HomeItem(model: model);
                 },
               ),

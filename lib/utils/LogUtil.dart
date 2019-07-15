@@ -2,11 +2,11 @@ class LogUtil {
   static const String _TAG_DEF = "###common_utils###";
 
   static bool debuggable = false; //是否是debug模式,true: log v 不输出.
-  static String TAG = _TAG_DEF;
+  static String _TAG = _TAG_DEF;
 
   static void init({bool isDebug = false, String tag = _TAG_DEF}) {
     debuggable = isDebug;
-    TAG = tag;
+    _TAG = tag;
   }
 
   static void e(Object object, {String tag}) {
@@ -21,7 +21,7 @@ class LogUtil {
 
   static void _printLog(String tag, String stag, Object object) {
     StringBuffer sb = new StringBuffer();
-    sb.write((tag == null || tag.isEmpty) ? TAG : tag);
+    sb.write((tag == null || tag.isEmpty) ? _TAG : tag);
     sb.write(stag);
     sb.write(DateTime.now().toString() + "  ");
     sb.write(object);

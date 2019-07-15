@@ -37,19 +37,16 @@ class IncrementBloc implements BlocBase {
 
   @override
   Future getData({String labelId, int page}) {
-    // TODO: implement getData
     return null;
   }
 
   @override
   Future onLoadMore({String labelId}) {
-    // TODO: implement onLoadMore
     return null;
   }
 
   @override
   Future onRefresh({String labelId}) {
-    // TODO: implement onRefresh
     return null;
   }
 }

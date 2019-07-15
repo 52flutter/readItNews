@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:readitnews/components/webview.dart';
 import 'package:readitnews/models/maintab.dart';
 import 'package:readitnews/pages/Juejin/Home.dart';
@@ -54,26 +53,26 @@ class MainPage extends StatelessWidget {
     return new TopTabs(
       tabs: mainTabs,
     );
-    return new DefaultTabController(
-        length: mainTabs.length,
-        child: new Scaffold(
-          appBar: new AppBar(
-            leading: buildIconBotton(new Icon(FontAwesomeIcons.user), () {
-              print("Pressed");
-            }),
-            actions: <Widget>[
-              buildIconBotton(new Icon(FontAwesomeIcons.search), () {
-                print("Pressed");
-              })
-            ],
-            centerTitle: true,
-            title: new TabLayout(),
-          ),
-          body: new TabBarViewLayout(),
-          // drawer: new Drawer(
-          //   child: new MainLeftPage(),
-          // ),
-        ));
+    // return new DefaultTabController(
+    //     length: mainTabs.length,
+    //     child: new Scaffold(
+    //       appBar: new AppBar(
+    //         leading: buildIconBotton(new Icon(FontAwesomeIcons.user), () {
+    //           print("Pressed");
+    //         }),
+    //         actions: <Widget>[
+    //           buildIconBotton(new Icon(FontAwesomeIcons.search), () {
+    //             print("Pressed");
+    //           })
+    //         ],
+    //         centerTitle: true,
+    //         title: new TabLayout(),
+    //       ),
+    //       body: new TabBarViewLayout(),
+    //       // drawer: new Drawer(
+    //       //   child: new MainLeftPage(),
+    //       // ),
+    //     ));
   }
 }
 

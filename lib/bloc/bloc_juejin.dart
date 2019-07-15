@@ -93,7 +93,7 @@ class JuejinBloc implements BlocBase {
   void dispose() {
     _juejin.close();
     _commonListStatusEvent.close();
-    // TODO: implement dispose
+    _juejinDetails.close();
   }
 
   @override

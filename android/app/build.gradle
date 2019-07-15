@@ -40,9 +40,9 @@ android {
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
-    	GETUI_APP_ID    : "sERNrRax4vAn646UlGN8r2",
-    	GETUI_APP_KEY   : "8KJc0jQOFdAdED3OQjQxy5",
-    	GETUI_APP_SECRET: "aIeMIm1C5EAbqBxX41CCg" ,
+    	GETUI_APP_ID    : "06cL5Tkh5s7BIWSJs8TGi2",
+    	GETUI_APP_KEY   : "fZjZ0vRwoh5KYx2J7X9W28",
+    	GETUI_APP_SECRET: "L02MqJ7YvK8VaRVmaSYOI3" ,
         
         XIAOMI_APP_ID   : "",
         XIAOMI_APP_KEY  : "",

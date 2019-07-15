@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:readitnews/models/StatusEvent.dart';
 import 'package:readitnews/models/cnblogs/cnblog_details.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
@@ -86,7 +85,7 @@ class MainBloc implements BlocBase {
   void dispose() {
     _cnblog.close();
     _commonListStatusEvent.close();
-    // TODO: implement dispose
+    _cnblogDetails.close();
   }
 
   @override

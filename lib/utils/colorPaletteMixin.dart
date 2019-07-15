@@ -1,7 +1,5 @@
 import 'package:flutter/painting.dart';
 import 'package:tinycolor/tinycolor.dart';
-import 'package:tinycolor/conversion.dart';
-import 'package:pigment/pigment.dart';
 
 class ColorPaletteMixin {
   double hueStep = 2;

@@ -6,9 +6,9 @@ import 'package:readitnews/routers/router.dart';
 
 final codeTags = ["pre", "code", "tt"];
 
-const csharpKeys = ["namespace", "using"];
+const csharpKeys = ["namespace", "using", "Main(string[] args)"];
 const jsKeys = [
-  "script",
+  // "script",
   "console.log",
   "require",
   "prototype",
@@ -32,7 +32,7 @@ const jsKeys = [
   "angular",
   "prototype",
   "javascript",
-  "script"
+  // "script"
 ];
 
 const kotlinKeys = [
@@ -175,7 +175,8 @@ class HtmlViewState extends State<HtmlView> {
             new SyntaxWidget(
           code: meta.domElement.text.replaceAll("复制代码", ''),
           syntax: syntax,
-          syntaxTheme: SyntaxTheme.ayuDark(),
+          syntaxTheme: SyntaxTheme.obsidian(),
+
           // withZoom: true,
         ),
       ),
