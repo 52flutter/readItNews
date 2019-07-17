@@ -4,6 +4,9 @@ import 'package:html/parser.dart';
 import 'package:readitnews/models/juejin/listresult.dart';
 import 'package:readitnews/models/juejin/search_args.dart';
 
+import 'HttpManager.dart';
+import 'ResultData.dart';
+
 class JuejinServices {
   static final int pageCount = 20;
   static String getQueryId(JuejinCategory category) {
@@ -33,31 +36,35 @@ class JuejinServices {
         query: new Query(id: id),
       ),
     );
-    Dio dio = new Dio();
     var url = 'https://web-api.juejin.im/query';
-
-    var data = await dio.post(url,
-        data: args,
-        options: new Options(
+    ResultData resData = await httpManager.fetch(url,
+        params: args,
+        option: new Options(
+          method: 'post',
           headers: {
             "X-Agent": "Juejin/Web",
           },
         ));
-    return ListResult.fromJson(data.data);
+    if (resData.result) {
+      return ListResult.fromJson(resData.data);
+    } else {
+      return null;
+    }
   }
 
   static Future<String> getDetails(String title, String url) async {
     //  await Future.delayed(new Duration(milliseconds: 50));
     var html = '';
-    Dio dio = new Dio();
-    Response response = await dio.get(url);
-    // blogpost-body
-    if (url.contains('juejin')) {
-      var document = parse(response.data);
-      var data = document.getElementsByClassName("article");
-      html = "<h2>$title</h2>" + data[0].innerHtml;
-    } else {
-      html = response.data;
+
+    ResultData resData = await httpManager.fetch(url);
+    if (resData.result) {
+      if (url.contains('juejin')) {
+        var document = parse(resData.data);
+        var data = document.getElementsByClassName("article");
+        html = "<h2>$title</h2>" + data[0].innerHtml;
+      } else {
+        html = resData.data;
+      }
     }
     return html;
   }

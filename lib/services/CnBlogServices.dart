@@ -1,8 +1,8 @@
 import 'dart:async';
-
-import 'package:dio/dio.dart';
 import 'package:readitnews/models/cnblogs/cnblogs_home_data.dart';
 import 'package:xml/xml.dart' as xml;
+import './HttpManager.dart';
+import 'ResultData.dart';
 
 class CnBlogServices {
 //http://wcf.open.cnblogs.com/blog/sitehome/paged/1/20
@@ -26,11 +26,12 @@ static Future<List<CnBlogsSitehomeItem> > getSiteHomeData(int pageIndex) async{
   if(pageIndex==0){
     pageIndex=1;
   }
+    List<CnBlogsSitehomeItem> results= new List<CnBlogsSitehomeItem>();
   String url='http://wcf.open.cnblogs.com/blog/sitehome/paged/$pageIndex/$pageCount';
-  Dio dio = new Dio();
-  Response response = await dio.get(url);
-  var document = xml.parse(response.data);
-  List<CnBlogsSitehomeItem> results= new List<CnBlogsSitehomeItem>();
+   ResultData resData=await httpManager.fetch(url);
+if(resData.result){
+  var document = xml.parse(resData.data);
+
   var rootNode=document.findAllElements('feed').single;
 
     var entrys =rootNode.findAllElements('entry');
@@ -53,7 +54,12 @@ static Future<List<CnBlogsSitehomeItem> > getSiteHomeData(int pageIndex) async{
       CnBlogsSitehomeItem dataItems=new CnBlogsSitehomeItem(id,title,summary,published,updated,link,blogapp,diggs,views,comments,author);
       results.add(dataItems);
     });
-  return results;
+      return results;
+    }
+    else{
+      return null;
+    }
+
 }
 
 
@@ -61,16 +67,22 @@ static Future<List<CnBlogsSitehomeItem> > getSiteHomeData(int pageIndex) async{
     var url='http://wcf.open.cnblogs.com/blog/post/body/$id';
     //  await Future.delayed(new Duration(milliseconds: 50));
     String html = "";
-    Dio dio = new Dio();
-    Response response = await dio.get(url);
+
+   ResultData resData=await httpManager.fetch(url);
+    // Dio dio = new Dio();
+
+    // Response response = await dio.get(url);
     // blogpost-body
-   var document = xml.parse(response.data);
+    if(resData.result){
+   var document = xml.parse(resData.data);
     var data = document.findAllElements("string").single;
     try {
       html = "<h2>$title</h2>" + data.text;
     } catch (ex) {
       print(ex);
     }
+    }
+
     return html;
   }
 }

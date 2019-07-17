@@ -56,6 +56,18 @@ class MainBloc implements BlocBase {
 
   Future getCnBlogHomeData(String labelId, int page) {
     return CnBlogServices.getSiteHomeData(page).then((list) {
+      if (list == null) {
+        _cnblogPage--;
+        if (_cnblogList == null) {
+          _cnblogList = new List();
+        }
+        _cnblogSink.add(UnmodifiableListView<CnBlogsSitehomeItem>(_cnblogList));
+        _commonListStatusSink.add(new StatusEvent(
+            labelId,
+            page == 0 ? RefreshType.top : RefreshType.bottom,
+            RefreshResult.failed));
+        return;
+      }
       if (_cnblogList == null) {
         _cnblogList = new List();
       }
