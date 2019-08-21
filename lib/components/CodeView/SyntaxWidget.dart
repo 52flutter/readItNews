@@ -51,25 +51,25 @@ class SyntaxWidgetState extends State<SyntaxWidget> {
         "Syntax must not be null. select a Syntax by calling Syntax.(Language)");
 
     return Container(
-        padding: EdgeInsets.all(10),
-        color: widget.syntaxTheme.backgroundColor,
-        // constraints: BoxConstraints.expand(),
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: RichText(
-              textScaleFactor: textScaleFactor,
-              text: TextSpan(
-                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
-                children: <TextSpan>[
-                  widget.getSyntax(widget.syntax).format(widget.code)
-                ],
-              ),
+      padding: EdgeInsets.all(10),
+      color: widget.syntaxTheme.backgroundColor,
+      // constraints: BoxConstraints.expand(),
+      child: Scrollbar(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: RichText(
+            textScaleFactor: textScaleFactor,
+            text: TextSpan(
+              style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+              children: <TextSpan>[
+                widget.getSyntax(widget.syntax).format(widget.code)
+              ],
             ),
           ),
-        )
+        ),
+      ),
 
-        /// To ignore null if zoom is not enabled.
-        );
+      /// To ignore null if zoom is not enabled.
+    );
   }
 }

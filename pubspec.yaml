@@ -27,33 +27,31 @@ dependencies:
   cupertino_icons: ^0.1.2
   #字体图标
   font_awesome_flutter: ^8.5.0
-  rxdart: ^0.22.1
+  rxdart: ^0.22.1+1
   #webview
-  webview_flutter: ^0.3.10+4
+  webview_flutter: ^0.3.13
   html: ^0.14.0+2
   #html解析成组件
   # flutter_widget_from_html_core: ^0.2.0
   #加载动画
-  flutter_spinkit: ^3.1.0
+  flutter_spinkit: ^4.0.0
 
   fluttertoast: ^3.1.0
-  url_launcher: ^5.1.1
+  url_launcher: ^5.1.2
   #图表
   charts_flutter: ^0.6.0
 
   #json序列化
-  json_annotation: ^2.4.0
+  json_annotation: ^3.0.0
   tinycolor: ^1.0.2
   xml: ^3.5.0
   #下拉刷新
-  pull_to_refresh: ^1.5.2
+  pull_to_refresh: ^1.5.4
   #代码
   flutter_syntax_view: ^0.2.1
-  flutter_widget_from_html_core: ^0.2.2+1
   event_bus:  ^1.1.0
   shared_preferences: ^0.5.3+4
-  connectivity: ^0.4.3+6
-
+  connectivity: ^0.4.3+7
   flutter_fab_dialer:
       git:
         url: https://github.com/Leondev7/flutter_fab_dialer
@@ -61,8 +59,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.6.5
-  json_serializable: ^3.1.0 
+  build_runner: ^1.6.6
+  json_serializable: ^3.2.0 
 
 
 # For information on the generic Dart part of this file, see the
