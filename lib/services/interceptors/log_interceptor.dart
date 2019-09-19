@@ -9,7 +9,7 @@ const bool inProduction = const bool.fromEnvironment("dart.vm.product");
  */
 class LogsInterceptors extends InterceptorsWrapper {
   @override
-  onRequest(RequestOptions options) {
+  onRequest(RequestOptions options) async {
     if (!inProduction) {
       print("请求url：${options.path}");
       print('请求头: ' + options.headers.toString());
@@ -21,7 +21,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   }
 
   @override
-  onResponse(Response response) {
+  onResponse(Response response) async {
     if (!inProduction) {
       if (response != null) {
         print('返回参数: ' + response.toString());
@@ -31,7 +31,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   }
 
   @override
-  onError(DioError err) {
+  onError(DioError err) async {
     if (!inProduction) {
       print('请求异常: ' + err.toString());
       print('请求异常信息: ' + err.response?.toString() ?? "");

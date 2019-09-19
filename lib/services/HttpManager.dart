@@ -1,6 +1,5 @@
-import 'dart:collection';
-
 import 'package:dio/dio.dart';
+import 'package:dio_http2_adapter/dio_http2_adapter.dart';
 
 import 'Code.dart';
 import 'ResultData.dart';
@@ -8,14 +7,23 @@ import 'interceptors/error_interceptor.dart';
 import 'interceptors/header_interceptor.dart';
 import 'interceptors/log_interceptor.dart';
 import 'interceptors/response_interceptor.dart';
-import 'interceptors/token_interceptor.dart';
 
 ///http请求
 class HttpManager {
   static const CONTENT_TYPE_JSON = "application/json";
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
-  Dio _dio = new Dio(); // 使用默认配置
+  Dio _dio = new Dio(); //
+  //http2.0
+  // ..httpClientAdapter = Http2Adapter(
+  //   ConnectionManager(
+  //     idleTimeout: 10000,
+
+  //     /// Ignore bad certificate
+  //     onClientCreate: (_, clientSetting) =>
+  //         clientSetting.onBadCertificate = (_) => true,
+  //   ),
+  // ); // 使用默认配置
 
   // final TokenInterceptors _tokenInterceptors = new TokenInterceptors();
 
