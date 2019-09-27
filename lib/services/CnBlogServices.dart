@@ -74,10 +74,10 @@ if(resData.result){
     // Response response = await dio.get(url);
     // blogpost-body
     if(resData.result){
-   var document = xml.parse(resData.data);
-    var data = document.findAllElements("string").single;
+  //  var document = xml.parse(resData.data);
+  //   var data = document.findAllElements("string").single;
     try {
-      html = "<h2>$title</h2>" + data.text;
+      html = "<h2>$title</h2>" + resData.data;
     } catch (ex) {
       print(ex);
     }

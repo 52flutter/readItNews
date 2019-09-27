@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http2_adapter/dio_http2_adapter.dart';
+import 'package:flutter/foundation.dart';
 
 import 'Code.dart';
 import 'ResultData.dart';
@@ -7,6 +10,15 @@ import 'interceptors/error_interceptor.dart';
 import 'interceptors/header_interceptor.dart';
 import 'interceptors/log_interceptor.dart';
 import 'interceptors/response_interceptor.dart';
+
+// 必须是顶层函数
+_parseAndDecode(String response) {
+  return jsonDecode(response);
+}
+
+parseJson(String text) {
+  return compute(_parseAndDecode, text);
+}
 
 ///http请求
 class HttpManager {
@@ -28,6 +40,7 @@ class HttpManager {
   // final TokenInterceptors _tokenInterceptors = new TokenInterceptors();
 
   HttpManager() {
+    (_dio.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
     _dio.interceptors.add(new HeaderInterceptors());
 
     // _dio.interceptors.add(_tokenInterceptors);
